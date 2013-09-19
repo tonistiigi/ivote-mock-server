@@ -1,0 +1,15 @@
+{
+    "appConfig": {
+        "elections": {
+            "ELECTIONID1": "Descritpion 1", 
+            "ELECTIONIDN": "Description N"
+        }, 
+        "params": {
+            "app_url": "", 
+            "close_interval": 1000, 
+            "close_timeout": 30000, 
+            "help_url": "", 
+            "public_key": ""
+        }
+    }
+}
