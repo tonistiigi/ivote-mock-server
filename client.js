@@ -34,15 +34,27 @@ function showQR(vote) {
 }
 
 var voteTmpl
+var addTmpl
 function setup() {
   voteTmpl = $('.vote.tmpl').removeClass('tmpl').remove()
 
   $.ajax('/votes').done(function(votes) {
-    votes.forEach(addVote)
+    votes.forEach(renderVote)
+  })
+
+  addTmpl = $('#addVote').remove()
+
+  $.ajax('/elections').done(function(elections) {
+    for (var i in elections) {
+      addTmpl.find('#electionId').append(
+        $('<option>', {value: i}).text(elections[i])
+      )
+    }
+    $('#addBtn').on('click', newVote)
   })
 }
 
-function addVote(v) {
+function renderVote(v) {
   console.log('add')
   var el = voteTmpl.clone()
 
@@ -55,6 +67,28 @@ function addVote(v) {
     showQR(v)
   })
   $('.votes').append(el)
+}
+
+function newVote() {
+  var modal = addTmpl.clone()
+  $(document.body).append(modal)
+  modal.modal()
+  modal.on('hidden.bs.modal', function () {
+    modal.remove()
+  })
+  console.log(modal.find('form').serialize())
+  modal.find('#btnSave').on('click', function() {
+    $.ajax({
+      type: 'POST',
+      data: modal.find('form').serialize(),
+      url: '/votes',
+      success: function(data) {
+        renderVote(data)
+        modal.modal('hide')
+      }
+    })
+
+  })
 }
 
 $(setup)

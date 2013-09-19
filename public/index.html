@@ -64,6 +64,69 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    
+    <div class="modal fade"  id="addVote">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">New vote</h4>
+          </div>
+          <div class="modal-body">
+
+            <form class="form-horizontal" role="form">
+              <div class="form-group">
+                <label for="electionId" class="col-lg-4 control-label">Election</label>
+                <div class="col-lg-7">
+                  <select class="form-control" id="electionId" name="electionId">
+                  </select>
+
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="voterName" class="col-lg-4 control-label">Voter name</label>
+                <div class="col-lg-7">
+                  <input type="text" class="form-control" value="First Last" n="voterName" name="voterName">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="voterCode" class="col-lg-4 control-label">Voter code</label>
+                <div class="col-lg-7">
+                  <input class="form-control" id="voterCode" value="41111111115" name="voterCode">
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <label for="candidateNo" class="col-lg-4 control-label">Candidate number</label>
+                <div class="col-lg-2">
+                  <input class="form-control" id="candidateNo" value="100" name="candidateNo">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="candidateName" class="col-lg-4 control-label">Candidate name</label>
+                <div class="col-lg-7">
+                  <input class="form-control" id="candidateName" value="Kandi Daat" name="candidateName">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="candidateParty" class="col-lg-4 control-label">Candidate party</label>
+                <div class="col-lg-7">
+                  <input class="form-control" id="candidateParty" value="Partei" name="candidateParty">
+                </div>
+              </div>
+            </form>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="btnSave">Save changes</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

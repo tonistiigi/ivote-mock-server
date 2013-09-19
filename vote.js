@@ -30,6 +30,18 @@ Vote.prototype.getResponse = function(cb) {
 
 }
 
+Vote.prototype.getJSON = function() {
+  return {
+      electionId: this.electionId,
+      voterName: this.voterName,
+      candidateParty: this.candidateParty,
+      candidateNo: this.candidateNo,
+      candidateName: this.candidateName,
+      msgId: this.msgId.toString('hex'),
+      hex: this.hex.toString('hex')
+    }
+}
+
 function getHash(keyfile, random, data, cb) {
   var java = spawn('java', ['-cp','.:bcprov-jdk14-146.jar', 'Encrypter',
     keyfile, random, data])
@@ -50,21 +62,14 @@ function getHash(keyfile, random, data, cb) {
 var votes = []
 
 function add(req, res) {
-  votes.push(new Vote(req.body))
-  res.json({status: 'ok'})
+  var v = new Vote(req.body)
+  votes.push(v)
+  res.json(v.getJSON())
 }
 
 function list(req, res) {
   res.json(votes.map(function(v) {
-    return {
-      electionId: v.electionId,
-      voterName: v.voterName,
-      candidateParty: v.candidateParty,
-      candidateNo: v.candidateNo,
-      candidateName: v.candidateName,
-      msgId: v.msgId.toString('hex'),
-      hex: v.hex.toString('hex')
-    }
+    return v.getJSON()
   }))
 }
 

@@ -68,6 +68,26 @@ app.get('/client.js', function(req, res) {
 
 app.post('/votes', vote.add)
 app.get('/votes', vote.list)
+app.get('/elections', function(req, res) {
+  function error(e) {
+    res.writeHead(500)
+    res.write(e.message)
+    res.end()
+  }
+
+  fs.readFile('./config.json', function(err, json) {
+    if (err) return  error(err)
+    try {
+      json = JSON.parse(json.toString('utf8'))
+    }
+    catch(e) {
+      return error(e)
+    }
+    res.writeHead(200, {'Content-type': 'application/json'})
+    res.end(JSON.stringify(json.appConfig.elections))
+  })
+  return
+})
 
 
 app.all('*', express.static('public'))
