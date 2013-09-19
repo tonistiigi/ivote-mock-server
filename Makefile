@@ -13,15 +13,15 @@ ssl-csr.pem: ssl.cnf ssl-key.pem
 ssl-cert.pem: ssl-csr.pem ssl-key.pem
 	openssl x509 -req -days 365 -in ssl-csr.pem -signkey ssl-key.pem -out ssl-cert.pem
 
-bcprov-jdk14-149.jar:
-	curl http://downloads.bouncycastle.org/java/bcprov-jdk14-149.jar -o bcprov-jdk14-149.jar
+bcprov-jdk14-146.jar:
+	curl http://downloads.bouncycastle.org/java/bcprov-jdk14-146.jar -o bcprov-jdk14-146.jar
 
-mytruststore.bks: ssl-cert.pem bcprov-jdk14-149.jar
+mytruststore.bks: ssl-cert.pem bcprov-jdk14-146.jar
 	rm -f mytruststore.bks
 	keytool -import -v -alias 0 -file ssl-cert.pem -keystore mytruststore.bks \
       -storetype BKS \
       -provider org.bouncycastle.jce.provider.BouncyCastleProvider \
-      -providerpath bcprov-jdk14-149.jar -storepass secret -noprompt
+      -providerpath bcprov-jdk14-146.jar -storepass secret -noprompt
 
 deploy: mytruststore.bks
 	if test "$(APP_PATH)" = "" ; then \
