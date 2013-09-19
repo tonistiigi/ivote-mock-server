@@ -41,6 +41,10 @@ app.get('/config.json', function(req, res) {
   })
 })
 
+app.get('/client.js', function(req, res) {
+  require('browserify')().add('./qr').bundle().pipe(res)
+})
+
 app.all('*', express.static('public'))
 
 var sslOptions = {
