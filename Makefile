@@ -1,6 +1,7 @@
 domain=$(shell node domain.js)
 
-all: ssl-cert.pem
+
+all: | deploy
 
 ssl-key.pem:
 	openssl genrsa -out ssl-key.pem 1024
@@ -22,4 +23,14 @@ mytruststore.bks: ssl-cert.pem bcprov-jdk14-149.jar
       -provider org.bouncycastle.jce.provider.BouncyCastleProvider \
       -providerpath bcprov-jdk14-149.jar -storepass secret -noprompt
 
-.PHONY: all
+deploy: mytruststore.bks
+	if test "$(APP_PATH)" = "" ; then \
+	    echo "APP_PATH not set"; exit 1; \
+	fi
+	if test ! -f "$(APP_PATH)/AndroidManifest.xml"; then \
+	    echo "$(APP_PATH) does not contain android project"; exit 1; \
+	fi
+	printf "https://$(domain)/config.json" > $(APP_PATH)/res/raw/config.txt
+	cp mytruststore.bks $(APP_PATH)/res/raw/mytruststore.bks
+
+.PHONY: all check-path
