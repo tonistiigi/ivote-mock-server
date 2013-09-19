@@ -19,6 +19,7 @@ var app = express()
 
 app.use(express.bodyParser())
 
+var pubkey = fs.readFileSync('./rsakey.pub', 'utf8')
 app.get('/config.json', function(req, res) {
   fs.readFile('./config.json', function(err, json) {
 
@@ -35,6 +36,7 @@ app.get('/config.json', function(req, res) {
         (ssl_port === 443 ? '' : ':' + ssl_port) + '/'
       json.appConfig.params.app_url = pfx + 'verify'
       json.appConfig.params.help_url = pfx + 'help.html'
+      json.appConfig.params.public_key = pubkey
     }
     catch(e) {
       return error(e)
@@ -50,9 +52,13 @@ app.post('/verify', function(req, res) {
 
   var v = vote.getById(req.body.vote)
 
-  if (v) res.write(v.getResponse())
+  v.getResponse(function(err, txt) {
+    if (!err) {
+      res.write(txt)
+    }
+    res.end()
+  })
 
-  res.end()
 })
 
 app.get('/client.js', function(req, res) {

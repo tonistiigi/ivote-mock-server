@@ -23,7 +23,17 @@ mytruststore.bks: ssl-cert.pem bcprov-jdk14-146.jar
       -provider org.bouncycastle.jce.provider.BouncyCastleProvider \
       -providerpath bcprov-jdk14-146.jar -storepass secret -noprompt
 
-deploy: mytruststore.bks
+Encrypter.class: Encrypter.java bcprov-jdk14-146.jar
+	javac  Encrypter.java  -cp bcprov-jdk14-146.jar
+	# java -cp ".:bcprov-jdk14-146.jar" Encrypter pubkey.pem random data
+
+rsakey.pem:
+	openssl genrsa 1024 > $@
+
+rsakey.pub: rsakey.pem
+	openssl rsa -in rsakey.pem -pubout > $@
+
+deploy: mytruststore.bks rsakey.pub
 	if test "$(APP_PATH)" = "" ; then \
 	    echo "APP_PATH not set"; exit 1; \
 	fi

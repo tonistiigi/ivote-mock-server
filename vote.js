@@ -1,4 +1,6 @@
 var crypto = require('crypto')
+var spawn = require('child_process').spawn
+var concat = require('concat-stream')
 
 function Vote(opt) {
   opt = opt || {}
@@ -15,11 +17,34 @@ function Vote(opt) {
   this.candidateParty = opt.candidateParty || 'Party'
 }
 
-Vote.prototype.getResponse = function() {
-  return this.version + '\n0\n' + this.electionId + '\n' + this.electionId +
-    '\t' + 'abc' + '\n\n' + this.voterName + '\t' + this.voterCode +
-    '\t\t' + this.candidateNo + '\t' + this.candidateName + '\t' +
-    this.candidateParty
+Vote.prototype.getResponse = function(cb) {
+  var self = this
+  getHash('./rsakey.pub', this.hex.toString('hex'),
+    this.version + '\n' + this.electionId + '\n' + this.candidateNo + '\n',
+    function(err, hash) {
+      cb(err,  self.version + '\n0\n' + self.electionId + '\n' +
+        self.electionId + '\t' + hash + '\n\n' + self.voterName + '\t' +
+        self.voterCode + '\t\t' + self.candidateNo + '\t' +
+        self.candidateName + '\t' + self.candidateParty)
+    })
+
+}
+
+function getHash(keyfile, random, data, cb) {
+  var java = spawn('java', ['-cp','.:bcprov-jdk14-146.jar', 'Encrypter',
+    keyfile, random, data])
+  var out
+  java.stdout.pipe(concat(function(data) {
+    out = data.toString().trim()
+  }))
+  java.on('close', function(code) {
+    if (code) {
+      cb(Error(code + out))
+    }
+    else {
+      cb(null, out)
+    }
+  })
 }
 
 var votes = []

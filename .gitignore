@@ -6,3 +6,5 @@ ssl-key.pem
 .domain
 bcprov-jdk14-149.jar
 mytruststore.bks
+rsakey.pem
+rsakey.pub
