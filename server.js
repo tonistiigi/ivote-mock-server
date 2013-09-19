@@ -48,9 +48,10 @@ app.get('/config.json', function(req, res) {
 app.post('/verify', function(req, res) {
   res.writeHead(200, {'content-type': 'text/plain'});
 
-  var v = new vote.Vote
+  var v = vote.getById(req.body.vote)
 
-  res.write(v.getResponse())
+  if (v) res.write(v.getResponse())
+
   res.end()
 })
 
