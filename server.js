@@ -8,7 +8,7 @@ var domain = require('./domain')
 var ssl_port = 443
 
 function server(req, res) {
-
+  console.log(req)
   var path = parse(req.url)
   console.log('path', path, req.method)
   if (path.pathname === '/config.json') {
@@ -31,6 +31,7 @@ function server(req, res) {
         return error(e)
       }
       res.writeHead(200, {'Content-type': 'application/json'})
+      res.write(' ')
       res.end(JSON.stringify(json))
     })
     return
