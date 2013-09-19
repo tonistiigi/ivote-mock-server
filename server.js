@@ -7,6 +7,7 @@ var parse = require('url').parse
 var express = require('express')
 var formidable = require('formidable')
 var domain = require('./domain')
+var Vote = require('./vote').Vote
 
 var argv = require('optimist').argv
 
@@ -48,16 +49,9 @@ app.post('/verify', function(req, res) {
   form.parse(req, function(err, fields, files) {
     res.writeHead(200, {'content-type': 'text/plain'});
 
-    var version = 1
-    var id = 'ELECTIONID1'
-    var hash = 'abcdef'
-    var votername = 'votername'
-    var votercode = '01234567890'
-    var candno = 123
-    var candname = 'Foo Bar'
-    var party = 'Party'
+    var v = new Vote
 
-    res.write(version+'\n0\n'+id+'\n'+id+'\t'+hash+'\n\n'+votername+'\t'+votercode+'\t\t'+candno+'\t'+candname+'\t'+party)
+    res.write(v.getResponse())
     res.end()
   })
 })
