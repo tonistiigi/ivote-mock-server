@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/tonistiigi/ivote-mock-server/issues"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "optimist": "~0.6.0"
+  }
 }
