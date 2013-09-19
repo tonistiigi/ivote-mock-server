@@ -59,6 +59,9 @@ function list(req, res) {
     return {
       electionId: v.electionId,
       voterName: v.voterName,
+      candidateParty: v.candidateParty,
+      candidateNo: v.candidateNo,
+      candidateName: v.candidateName,
       msgId: v.msgId.toString('hex'),
       hex: v.hex.toString('hex')
     }

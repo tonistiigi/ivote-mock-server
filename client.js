@@ -27,13 +27,34 @@ function showQR(vote) {
       ctx.fillRect(Math.round(c * tileW), Math.round(r * tileH), w, h);
     }
   }
-  
-  document.body.appendChild(canvas)
+
+  $('#qrModal .modal-content').empty().append(canvas)
+  $('#qrModal').modal()
+
 }
 
-$.ajax('/votes').done(function(votes) {
-  console.log(votes)
-  if (votes.length) {
-    showQR(votes[0])
-  }
-})
+var voteTmpl
+function setup() {
+  voteTmpl = $('.vote.tmpl').removeClass('tmpl').remove()
+
+  $.ajax('/votes').done(function(votes) {
+    votes.forEach(addVote)
+  })
+}
+
+function addVote(v) {
+  console.log('add')
+  var el = voteTmpl.clone()
+
+  el.find('[data-text=electionId]').text(v.electionId)
+  el.find('[data-text=voterName]').text(v.voterName)
+  el.find('[data-text=candidateNo]').text(v.candidateNo)
+  el.find('[data-text=candidateName]').text(v.candidateName)
+  el.find('[data-text=candidateParty]').text(v.candidateParty)
+  el.find('.btn').on('click', function() {
+    showQR(v)
+  })
+  $('.votes').append(el)
+}
+
+$(setup)

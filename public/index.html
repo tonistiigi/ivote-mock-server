@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>iVote mock server</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <style>
+    .btn-primary {
+      margin-top: 20px;
+    }
+    .votes {
+      margin-top: 50px;
+    }
+    .vote {
+      height: 40px;
+    }
+    .vote.labels {
+      font-weight: bold;
+    }
+    canvas {
+      margin: 130px;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <button type="button" class="btn btn-primary btn-lg pull-right" id="addBtn">
+        <span class="glyphicon glyphicon-plus"></span>
+        New vote
+      </button>
+      <h1>iVote mock server</h1>    
+      
+      <div class="votes">
+        <div class="vote labels">
+          <div class="col-lg-2">Election</div>
+          <div class="col-lg-2">Voter name</div>
+          <div class="col-lg-2">Candidate no</div>
+          <div class="col-lg-2">Candidate name</div>
+          <div class="col-lg-2">Candidate party</div>
+        </div>
+        <div class="vote tmpl">
+          <div class="col-lg-2" data-text="electionId"></div>
+          <div class="col-lg-2" data-text="voterName"></div>
+          <div class="col-lg-2" data-text="candidateNo"></div>
+          <div class="col-lg-2" data-text="candidateName"></div>
+          <div class="col-lg-2" data-text="candidateParty"></div>
+          <div class="col-lg-2">
+            <button type="button" class="btn">Verify</button>
+          </div>
+        </div>
+      
+      </div>
+    </div>
+
+  
+
+    
+
+    <div class="modal fade"  id="qrModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="/client.js"></script>
+  </body>
+</html>

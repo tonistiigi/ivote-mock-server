@@ -62,7 +62,7 @@ app.post('/verify', function(req, res) {
 })
 
 app.get('/client.js', function(req, res) {
-  require('browserify')().add('./qr').bundle().pipe(res)
+  require('browserify')().add('./client').bundle().pipe(res)
 })
 
 
