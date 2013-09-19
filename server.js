@@ -5,6 +5,7 @@ var http = require('http')
 var fs = require('fs')
 var parse = require('url').parse
 var express = require('express')
+var formidable = require('formidable')
 var domain = require('./domain')
 
 var argv = require('optimist').argv
@@ -38,6 +39,26 @@ app.get('/config.json', function(req, res) {
     res.writeHead(200, {'Content-type': 'application/json'})
     res.write(' ')
     res.end(JSON.stringify(json))
+  })
+})
+
+app.post('/verify', function(req, res) {
+  var form = new formidable.IncomingForm();
+
+  form.parse(req, function(err, fields, files) {
+    res.writeHead(200, {'content-type': 'text/plain'});
+
+    var version = 1
+    var id = 'ELECTIONID1'
+    var hash = 'abcdef'
+    var votername = 'votername'
+    var votercode = '01234567890'
+    var candno = 123
+    var candname = 'Foo Bar'
+    var party = 'Party'
+
+    res.write(version+'\n0\n'+id+'\n'+id+'\t'+hash+'\n\n'+votername+'\t'+votercode+'\t\t'+candno+'\t'+candname+'\t'+party)
+    res.end()
   })
 })
 
