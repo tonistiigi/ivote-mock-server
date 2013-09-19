@@ -1,15 +1,67 @@
 {
     "appConfig": {
+        "colors": {
+            "btn_background": "#F0F0F0", 
+            "btn_foreground": "#727272", 
+            "btn_verify_background_center": "#1AABE1", 
+            "btn_verify_background_end": "#00A1DC", 
+            "btn_verify_background_start": "#30B4E5", 
+            "btn_verify_foreground": "#FFFFFF", 
+            "error_window": "#FF0000", 
+            "error_window_foreground": "#FFFFFF", 
+            "error_window_shadow": "#770000", 
+            "frame_background": "#AA444444", 
+            "lbl_background": "#33B5E5", 
+            "lbl_close_timeout_background_center": "#F9D303", 
+            "lbl_close_timeout_background_end": "#F7C804", 
+            "lbl_close_timeout_background_start": "#FEEC00", 
+            "lbl_close_timeout_foreground": "#454444", 
+            "lbl_close_timeout_shadow": "#C6A002", 
+            "lbl_foreground": "#FFFFFF", 
+            "lbl_inner_container_background": "#FFFFFF", 
+            "lbl_inner_container_foreground": "#878686", 
+            "lbl_outer_container_background": "#EAEAEA", 
+            "lbl_outer_container_foreground": "#878686", 
+            "lbl_outer_inner_container_divider": "#E9E9E9", 
+            "lbl_shadow": "#008EC2", 
+            "loading_window_background": "#33B5E5", 
+            "loading_window_foreground": "#FFFFFF", 
+            "main_window": "#33B5E5", 
+            "main_window_foreground": "#FFFFFF", 
+            "main_window_shadow": "#005777"
+        }, 
         "elections": {
             "ELECTIONID1": "Descritpion 1", 
             "ELECTIONIDN": "Description N"
+        }, 
+        "errors": {
+            "bad_server_response_message": "bad_server_response_message", 
+            "bad_verification_message": "bad_verification_message", 
+            "close_qrcode_message": "close_qrcode_message", 
+            "no_network_message": "no_network_message", 
+            "problem_qrcode_message": "problem_qrcode_message"
         }, 
         "params": {
             "app_url": "", 
             "close_interval": 1000, 
             "close_timeout": 30000, 
             "help_url": "", 
-            "public_key": ""
+            "public_key": "public"
+        }, 
+        "texts": {
+            "btn_more": "btn_more", 
+            "btn_next": "btn_next", 
+            "btn_packet_data": "btn_packet_data", 
+            "btn_verify": "btn_verify", 
+            "btn_wifi": "btn_wifi", 
+            "lbl_choice": "lbl_choice", 
+            "lbl_close_timeout": "lbl_close_timeout", 
+            "lbl_vote": "lbl_vote", 
+            "lbl_vote_txt": "lbl_vote_txt", 
+            "loading": "loading", 
+            "notification_message": "notification_message", 
+            "notification_title": "notification_title", 
+            "welcome_message": "welcome_message"
         }
     }
 }
