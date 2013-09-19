@@ -24,8 +24,8 @@ function server(req, res) {
         json = JSON.parse(json.toString('utf8'))
         var pfx = 'https://' + domain.get() +
           (ssl_port === 443 ? '' : ':' + ssl_port) + '/'
-        json.appConfig.app_url = pfx
-        json.appConfig.help_url = pfx + '/help.html'
+        json.appConfig.params.app_url = pfx
+        json.appConfig.params.help_url = pfx + 'help.html'
       }
       catch(e) {
         return error(e)
