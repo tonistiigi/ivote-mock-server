@@ -17,5 +17,22 @@ Vote.prototype.getResponse = function() {
     this.candidateParty
 }
 
+var votes = []
+
+function add(req, res) {
+  votes.push(new Vote(req.body))
+  res.json({status: 'ok'})
+}
+
+function list(req, res) {
+  res.json(votes.map(function(v) {
+    return {
+      electionId: v.electionId,
+      voterName: v.voterName
+    }
+  }))
+}
 
 exports.Vote = Vote
+exports.add = add
+exports.list = list

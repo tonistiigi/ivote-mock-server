@@ -7,7 +7,7 @@ var parse = require('url').parse
 var express = require('express')
 var formidable = require('formidable')
 var domain = require('./domain')
-var Vote = require('./vote').Vote
+var vote = require('./vote')
 
 var argv = require('optimist').argv
 
@@ -16,6 +16,8 @@ var ssl_port = argv['ssl-port'] || (isroot ? 443 : 4443)
 var http_port = argv['http-port'] || 8880
 
 var app = express()
+
+app.use(express.bodyParser())
 
 app.get('/config.json', function(req, res) {
   fs.readFile('./config.json', function(err, json) {
@@ -44,21 +46,22 @@ app.get('/config.json', function(req, res) {
 })
 
 app.post('/verify', function(req, res) {
-  var form = new formidable.IncomingForm();
+  res.writeHead(200, {'content-type': 'text/plain'});
 
-  form.parse(req, function(err, fields, files) {
-    res.writeHead(200, {'content-type': 'text/plain'});
+  var v = new vote.Vote
 
-    var v = new Vote
-
-    res.write(v.getResponse())
-    res.end()
-  })
+  res.write(v.getResponse())
+  res.end()
 })
 
 app.get('/client.js', function(req, res) {
   require('browserify')().add('./qr').bundle().pipe(res)
 })
+
+
+app.post('/votes', vote.add)
+app.get('/votes', vote.list)
+
 
 app.all('*', express.static('public'))
 
