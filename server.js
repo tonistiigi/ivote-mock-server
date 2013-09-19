@@ -1,11 +1,16 @@
 #!/usr/bin/env node
 
 var https = require('https')
+var http = require('http')
 var fs = require('fs')
 var parse = require('url').parse
 var domain = require('./domain')
 
-var ssl_port = 443
+var argv = require('optimist').argv
+
+var isroot = process.getuid() === 0
+var ssl_port = argv['ssl-port'] || (isroot ? 443 : 4443)
+var http_port = argv['http-port'] || 8880
 
 function server(req, res) {
   console.log(req)
@@ -46,4 +51,12 @@ var sslOptions = {
   cert: fs.readFileSync('ssl-cert.pem')
 }
 
-https.createServer(sslOptions, server).listen(ssl_port)
+https.createServer(sslOptions, server).listen(ssl_port, function() {
+  console.log('HTTPS server started at: https://' + domain.get() +
+    (ssl_port === 443 ? '' : ':' + ssl_port) + '/'
+  )
+})
+http.createServer(server).listen(http_port, function() {
+  console.log('HTTP server started at: http://0.0.0.0:' + http_port + '/'
+  )
+})
