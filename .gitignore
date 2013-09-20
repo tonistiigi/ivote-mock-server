@@ -4,7 +4,7 @@ ssl-cert.pem
 ssl-csr.pem
 ssl-key.pem
 .domain
-bcprov-jdk14-149.jar
+bcprov-jdk14-146.jar
 mytruststore.bks
 rsakey.pem
 rsakey.pub
