@@ -1,5 +1,7 @@
 This is a simple mock server written in Node.js for testing the Android vote verification application used in Estonian national elections published in here [vvk-ehk/ivotingverification](https://github.com/vvk-ehk/ivotingverification)
 
+Tested with OSX 10.8
+
 ## Building
 
 ```
