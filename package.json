@@ -20,6 +20,7 @@
     "optimist": "~0.6.0",
     "express": "~3.4.0",
     "browserify": "~2.31.0",
-    "qr.js": "0.0.0"
+    "qr.js": "*",
+    "concat-stream": "~1.0.1"
   }
 }
